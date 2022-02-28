@@ -1,6 +1,7 @@
 const Sequelize = require ('sequelize');
+const db = require ('../database')
 
-const Tasks = new Sequelize('task',{
+const Tasks = db.define('task',{
     id:{
         type: Sequelize.STRING,
         primaryKey: true,
@@ -9,18 +10,16 @@ const Tasks = new Sequelize('task',{
         type: Sequelize.STRING,
         allowNull: false,
     },
-    description: Sequelize.TEXT,
+    description: {
+    type:Sequelize.TEXT,
     allowNull: false,
-});
+    }
+})
 
  
 
    
-User.sync({ alter: true });
+Tasks.sync({ alter: true });
 
 module.exports = Tasks; 
 
-
-
-
-module.exports = User;
