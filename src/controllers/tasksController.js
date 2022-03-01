@@ -5,7 +5,7 @@ const ULID = require('ulid')
 
 const router = express.Router();
 
-//cadastrar task
+// cadastrar task
 router.post('/register',async(req,res)=>{
     const {title,description}= req.body;
     const id = ULID.ulid();
@@ -15,6 +15,26 @@ router.post('/register',async(req,res)=>{
     } catch (error) {
       return res.status(200).json(error);  
     }
+})
+
+//get all tasks
+router.get('/getAll', async(req,res)=>{
+  try {
+    const task = await Task.findAll({
+      attributes:{
+        exclude:
+          ['createdAt',
+          'updatedAt',
+          'deletedAt',
+        ]
+        
+      }
+    });
+    return res.status(200).json({tasks:task})
+  } catch (error) {
+    console.log(error)
+    return res.status(500).json({error})
+  }
 })
 
 
