@@ -1,7 +1,7 @@
 require('dotenv').config();
 const express = require('express');
-const Tasks = require('./src/models/tasks');
-const tasksController = require('./src/controllers/tasksController');
+const Tasks = require('./models/tasks');
+const tasksController = require('./controllers/tasksController');
 const cors = require('cors');
 
 
