@@ -1,6 +1,7 @@
 const express = require('express');
 const Task = require('../models/tasks');
-const ULID = require('ulid')
+const ULID = require('ulid');
+const { route } = require('express/lib/application');
 
 
 const router = express.Router();
@@ -34,6 +35,30 @@ router.get('/getAll', async(req,res)=>{
   } catch (error) {
     console.log(error)
     return res.status(500).json({error})
+  }
+})
+
+//pegar task por id
+router.get('/get/:id', async(req,res)=>{
+  const id = req.body.id;
+  try {
+    const tas = await Task.findByPk(id);
+    console.log('task',tas)
+    return res.status(200).json(tas)
+  } catch (error) {
+    console.log(error)
+    return res.status(500).json(error)
+  }
+})
+
+//deletar task
+router.delete('/delete',async (req,res)=>{
+  try {
+  const id = req.body;
+  const taskDeleted = await Task.delete(id);
+  return res.status(200).json({message:'task deleted'})
+  } catch (error) {
+    return res.status(500).json(error)
   }
 })
 
